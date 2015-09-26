@@ -9,6 +9,14 @@ class Estate < ActiveRecord::Base
     [ latitude, longitude ]
   end
 
+  def available_estates
+    if estate_type.blank?
+      EstateType.all
+    else
+      EstateType.where({ kind: kind, level: (estate_type.level + 1) })
+    end
+  end
+
   def process params
     player = Player.find_by id: params[:player_id]
     _estate_type = EstateType.find_by id: params[:estate_type_id]
@@ -18,7 +26,6 @@ class Estate < ActiveRecord::Base
     else
       upgrade player, _estate_type
     end
-  
   end
 
   def upgrade player, _estate_type

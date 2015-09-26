@@ -2,7 +2,7 @@ module V1
 
   class PlayersController < ApplicationController
     def index
-      @players = Player.all
+      @players = Player.near [params[:latitude], params[:longitude]], params[:distance], units: :km
       render json: @players
     end
 

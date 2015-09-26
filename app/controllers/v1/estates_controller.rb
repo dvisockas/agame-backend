@@ -2,7 +2,7 @@ module V1
 
   class EstatesController < ApplicationController
     def index
-      @estates = Estate.all
+      @estates = Estate.near [params[:latitude], params[:longitude]], params[:distance], units: :km
       render json: @estates
     end
 
@@ -15,6 +15,11 @@ module V1
       @estate = Estate.find params[:id]
       @estate.process estate_params
       render json: @estate
+    end
+
+    def estate_types
+      @estate = Estate.find params[:id]
+      render json: @estate.available_estates, serializer: EstateSerializer
     end
 
   private

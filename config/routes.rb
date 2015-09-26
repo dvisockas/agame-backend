@@ -4,8 +4,11 @@ Rails.application.routes.draw do
 
     resources :players
     resources :estates
-    resources :estate_types
-    resources :game, only: :index
+    resources :estate_types do
+      member do
+        get :estate_types
+      end
+    end
 
   end
 
