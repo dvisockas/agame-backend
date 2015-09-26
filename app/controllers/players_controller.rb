@@ -7,7 +7,15 @@ class PlayersController < ApplicationController
   end
 
   def create
-    
+    @player = Player.create player_params
+
+    render json: @player
+  end
+
+private
+
+  def player_params
+    params.require(:user).permit! :name, :latitude, :longitude
   end
 
 end
