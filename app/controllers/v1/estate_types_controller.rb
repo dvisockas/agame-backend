@@ -19,7 +19,7 @@ module V1
   private
 
     def estate_params
-      params.require(:estate_type).permit! :name, :kind
+      params.require(:estate_type).permit :name, :kind
     end
   end
 
