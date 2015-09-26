@@ -8,21 +8,15 @@ namespace :get_buildings do
     bbox_sm = '21.1284,55.7023,21.1607,55.7133'
 
     p 'downloading...'
-    resp = HTTParty.get "http://overpass-api.de/api/xapi?way[bbox=#{bbox_sm}][building=*][@meta]"
+    resp = HTTParty.get "http://overpass-api.de/api/xapi?way[bbox=#{bbox_sm}][building=yes]"
     p 'parsing...'
     doc = JSON.parse(Hash.from_xml(resp).to_json).with_indifferent_access
-    p 'looking up unique keys...'
-    ids = doc[:osm][:node].map{|d|d[:changeset]}.uniq
     p 'importing...'
-    ids.each do |id|
-      nodes = doc[:osm][:node].select{ |d| d[:changeset]. == id }
-      latitude = nodes.sum{ |l| l[:lat].to_f } / nodes.count
-      longitude = nodes.sum{ |l| l[:lon].to_f } / nodes.count
-
+    doc[:osm][:node].each do |node|
       estate = Estate.new
-      estate.map_id = nodes.first[:id]
-      estate.latitude = nodes.first[:lat]
-      estate.longitude = nodes.first[:lon]
+      estate.map_id = node[:id]
+      estate.latitude = node[:lat]
+      estate.longitude = node[:lon]
       estate.save
     end
 
