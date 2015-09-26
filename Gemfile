@@ -11,6 +11,8 @@ gem 'rails-api'
 gem 'active_model_serializers', '~> 0.8.2'
 gem 'thin'
 gem 'rack-cors'
+gem 'httparty'
+gem 'nokogiri'
 
 gem 'rails_12factor', group: :production
 
