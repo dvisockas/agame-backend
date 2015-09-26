@@ -19,8 +19,7 @@ namespace :get_buildings do
       next if way[:tag].select{ |h| h[:k] == 'building' }.first[:v] != 'yes' rescue lambda { way[:tag][:k] == 'buiilding' && way[:tag][:k] != 'yes' }
 
       nodes = doc[:osm][:node].select{ |n| n[:id].in? way[:nd].map{ |nd| nd.values[0] } }
-      latitude = nodes.sum{ |n| n[:lat].to_f } / nodes.count
-      longitude = nodes.sum{ |n| n[:lon].to_f } / nodes.count
+      latitude, longitude = Geocoder::Calculations.geographic_center nodes.map{ |n| [ n[:lat], n[:lon] ] }
 
       estate = Estate.new
       estate.map_id = way[:id]
