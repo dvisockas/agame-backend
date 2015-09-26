@@ -7,6 +7,7 @@ gem 'sass-rails', '~> 5.0'
 
 gem 'geocoder'
 gem 'rails-api'
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'byebug'
