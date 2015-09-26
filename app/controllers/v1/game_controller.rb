@@ -5,7 +5,7 @@ module V1
       @players = Player.near [params[:latitude], params[:longitude]], 1, units: :km
       @estates = Estate.near [params[:latitude], params[:longitude]], 1, units: :km
       @game = { players: @players, estates: @estates }
-      render json: @game
+      render json: @game, serializer: GameSerializer
     end
   end
 
