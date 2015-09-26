@@ -11,7 +11,6 @@ namespace :get_buildings do
     resp = HTTParty.get "http://overpass-api.de/api/xapi?way[bbox=#{bbox_sm}][building=*][@meta]"
     p 'parsing...'
     doc = JSON.parse(Hash.from_xml(resp).to_json).with_indifferent_access
-    byebug
     p 'looking up unique keys...'
     ids = doc[:osm][:node].map{|d|d[:changeset]}.uniq
     p 'importing...'
