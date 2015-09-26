@@ -10,7 +10,7 @@ class Player < ActiveRecord::Base
   after_save :set_name
   # after_create :allocate_resources
 
-  # scope :gold, -> { player_resources.find_by kind: :gold }
+  scope :gold, -> { player_resources.find_by kind: :gold }
 
 private
   
@@ -18,8 +18,8 @@ private
     self.class.where(id: id).update_all name: "#{name}-#{id}"
   end
 
-  # def allocate_resources
-  #   self.player_resources.create({ kind: 0, amount: 1000 })
-  # end
+  def allocate_resources
+    self.player_resources.create({ kind: 0, amount: 1000 })
+  end
 
 end

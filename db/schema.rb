@@ -37,10 +37,13 @@ ActiveRecord::Schema.define(version: 20150926132108) do
 
   create_table "player_resources", force: :cascade do |t|
     t.integer  "kind"
+    t.integer  "player_id"
     t.float    "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "player_resources", ["player_id"], name: "index_player_resources_on_player_id", using: :btree
 
   create_table "players", force: :cascade do |t|
     t.string   "name"

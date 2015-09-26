@@ -2,7 +2,6 @@ class EstateType < ActiveRecord::Base
 
   enum kind: [:fortress, :main_resource, :main_storage]
 
-
   # class << self
   #   def build params
   #     player = Player.find_by id: params[:player_id]

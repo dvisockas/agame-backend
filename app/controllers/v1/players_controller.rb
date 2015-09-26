@@ -19,7 +19,7 @@ module V1
   private
 
     def player_params
-      params.require(:user).permit! :name, :latitude, :longitude
+      params.require(:player).permit! :name, :latitude, :longitude
     end
   end
 
