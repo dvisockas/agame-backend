@@ -62,4 +62,16 @@ class Estate < ActiveRecord::Base
     area / 100
   end
 
+  def self.calculate_area points
+    area = 0
+    j = points.count - 1
+
+    points.each_with_index do |p, i|
+      area += (points[j][0] + p[0]) * (points[j][1] - p[1])
+      j = i
+    end
+
+    area / 2
+  end
+
 end

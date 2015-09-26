@@ -24,7 +24,7 @@ namespace :get_buildings do
       estate.latitude = latitude
       estate.longitude = longitude
       estate.name = tget('name') || ( (tget('addr:street') || 'Whoosh') + (tget('addr:housenumber') || '') )
-      estate.area = 0
+      estate.area = 0#calculate_area nodes.map{ |n| [ n[:lat], n[:lon] ] }
       estate.save
 
     end
@@ -39,6 +39,18 @@ namespace :get_buildings do
       tag = (@tags[:k] == selector ? tag : nil)
       tag.try(:keys) and tag[:v]
     end
+  end
+
+  def calculate_area points
+    area = 0
+    j = points.count - 1
+
+    points.each_with_index do |p, i|
+      area += (points[j][0] + p[0]) * (points[j][1] - p[1])
+      j = i
+    end
+
+    area / 2
   end
 
 end
