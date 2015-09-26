@@ -5,6 +5,8 @@ class Estate < ActiveRecord::Base
 
   reverse_geocoded_by :latitude, :longitude
 
+  before_save :calculate_fields_from_area
+
   def location
     [ latitude, longitude ]
   end
@@ -44,6 +46,12 @@ class Estate < ActiveRecord::Base
 
   def increment? _estate_type
     ( _estate_type.kind == estate_type.kind ) && ( _estate_type.level == (estate_type.level + 1) )
+  end
+
+private
+
+  def calculate_fields_from_area
+    
   end
 
 end
