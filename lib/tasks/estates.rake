@@ -46,9 +46,9 @@ namespace :estates do
     j = points.count - 1
 
     points.each_with_index do |p, i|
-      byebug
-      area += (points[j][0] + p[0].to_f) * (points[j][1] - p[1].to_f)
-      j = i
+      plot = (points[j][0].to_f + p[0].to_f) * (points[j][1].to_f - p[1].to_f)
+      plot = (plot > 0) ? plot * 10 : (plot * -1) * 100
+      area += plot
     end
 
     area / 2
