@@ -12,7 +12,7 @@ module V1
     end
 
     def create
-      @player = Player.create(player_params).reload
+      @player = Player.find_or_create_by(name: player_params[:name]).update player_params
       render json: @player
     end
 

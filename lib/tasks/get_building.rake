@@ -25,7 +25,7 @@ namespace :get_buildings do
       estate.latitude = latitude
       estate.longitude = longitude
       estate.name = tget('name') || ( (tget('addr:street') || 'Whoosh') + (tget('addr:housenumber') || '') )
-      # estate.area = 
+      estate.area = 0
       estate.save
 
     end

@@ -6,9 +6,7 @@ class Player < ActiveRecord::Base
   has_one :gold, lambda { gold }, class_name: 'PlayerResource'
 
   reverse_geocoded_by :latitude, :longitude
-
-  after_save :set_name
-  after_create :allocate_resources
+  after_create :allocate_resources, :set_name
 
   scope :gold, -> { player_resources.find_by kind: :gold }
 
@@ -26,10 +24,6 @@ class Player < ActiveRecord::Base
 
 private
   
-  def set_name
-    self.class.where(id: id).update_all name: "#{name}-#{id}"
-  end
-
   def allocate_resources
     self.player_resources.create({ kind: 0, amount: 1000 })
   end

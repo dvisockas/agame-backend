@@ -5,8 +5,6 @@ class Estate < ActiveRecord::Base
 
   reverse_geocoded_by :latitude, :longitude
 
-  before_save :calculate_fields_from_area
-
   def location
     [ latitude, longitude ]
   end
@@ -48,10 +46,20 @@ class Estate < ActiveRecord::Base
     ( _estate_type.kind == estate_type.kind ) && ( _estate_type.level == (estate_type.level + 1) )
   end
 
-private
+  def calculated_health
+    area * 10
+  end
 
-  def calculate_fields_from_area
-    
+  def calculated_health_regen
+    area * 0.5
+  end
+
+  def calculated_cost
+    area * 10
+  end
+
+  def calculated_build_time
+    area / 100
   end
 
 end

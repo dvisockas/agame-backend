@@ -19,7 +19,7 @@ module V1
 
     def estate_types
       @estate = Estate.find params[:id]
-      render json: @estate.available_estates, serializer: EstateSerializer
+      render json: @estate.available_estates, each_serializer: EstateTypeSerializer, estate: @estate
     end
 
   private
