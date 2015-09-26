@@ -12,6 +12,7 @@ module V1
     end
 
     def create
+      # @estate = Estate.build estate_params
       @estate = Estate.create estate_params
       render json: @estate
     end
@@ -19,7 +20,7 @@ module V1
   private
 
     def estate_params
-      params.require(:estate).permit! :player_id, :latitude, :longitude
+      params.require(:estate).permit! :player_id, :latitude, :longitude, :estate_type_id
     end
   end
 

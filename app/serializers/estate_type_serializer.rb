@@ -1,5 +1,5 @@
 class EstateTypeSerializer < ActiveModel::Serializer
 
-  attributes :name
+  attributes :name, :kind
 
 end
