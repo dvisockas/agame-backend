@@ -6,7 +6,7 @@ class Player < ActiveRecord::Base
   has_one :gold, lambda { gold }, class_name: 'PlayerResource'
 
   reverse_geocoded_by :latitude, :longitude
-  after_create :allocate_resources, :set_name
+  after_create :allocate_resources
 
   scope :gold, -> { player_resources.find_by kind: :gold }
 
