@@ -12,7 +12,7 @@ module V1
     end
 
     def create
-      @player = Player.create player_params
+      @player = Player.create(player_params).reload
       render json: @player
     end
 
