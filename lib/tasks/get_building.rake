@@ -15,9 +15,9 @@ namespace :get_buildings do
     ids = doc[:osm][:node].map{|d|d[:changeset]}.uniq
     p 'importing...'
     ids.each do |id|
-      nodes = doc[:osm][:node].keep_if{ |d| d[:changeset].in? == id }
-      latitude = nodes.sum{ |l| l[:latitude] } / nodes.count
-      longitude = nodes.sum{ |l| l[:longitude] } / nodes.count
+      nodes = doc[:osm][:node].select{ |d| d[:changeset]. == id }
+      latitude = nodes.sum{ |l| l[:lat].to_f } / nodes.count
+      longitude = nodes.sum{ |l| l[:lon].to_f } / nodes.count
 
       estate = Estate.new
       estate.map_id = nodes.first[:id]
