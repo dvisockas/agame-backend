@@ -7,7 +7,7 @@ gem 'sass-rails', '~> 5.0'
 
 gem 'geocoder'
 gem 'rails-api'
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.8.2'
 gem 'thin'
 
 group :development, :test do
