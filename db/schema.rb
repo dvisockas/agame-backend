@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150926103815) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "estates", force: :cascade do |t|
     t.float    "latitude"
     t.float    "longitude"
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 20150926103815) do
     t.datetime "updated_at"
   end
 
-  add_index "estates", ["player_id"], name: "index_estates_on_player_id"
+  add_index "estates", ["player_id"], name: "index_estates_on_player_id", using: :btree
 
   create_table "players", force: :cascade do |t|
     t.string   "name"
