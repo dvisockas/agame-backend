@@ -1,6 +1,6 @@
 require 'json'
 
-namespace :get_buildings do
+namespace :estates do
   task run: :environment do
 
     bbox = '20.9568,55.6059,21.4735,55.7831'
@@ -24,7 +24,7 @@ namespace :get_buildings do
       estate.latitude = latitude
       estate.longitude = longitude
       estate.name = tget('name') || ( (tget('addr:street') || 'Whoosh') + (tget('addr:housenumber') || '') )
-      estate.area = 0#calculate_area nodes.map{ |n| [ n[:lat], n[:lon] ] }
+      estate.area = calculate_area nodes.map{ |n| [ n[:lat], n[:lon] ] }
       estate.save
 
     end
@@ -46,7 +46,8 @@ namespace :get_buildings do
     j = points.count - 1
 
     points.each_with_index do |p, i|
-      area += (points[j][0] + p[0]) * (points[j][1] - p[1])
+      byebug
+      area += (points[j][0] + p[0].to_f) * (points[j][1] - p[1].to_f)
       j = i
     end
 
