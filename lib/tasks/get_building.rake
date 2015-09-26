@@ -5,11 +5,14 @@ namespace :get_buildings do
     Estate.delete_all
 
     bbox = '20.9568,55.6059,21.4735,55.7831'
-    bbox_sm = '21.14134,55.69456,21.14941,55.69733'
+    bbox_sm = '21.1284,55.7023,21.1607,55.7133'
 
-    resp = HTTParty.get "http://overpass-api.de/api/xapi?way[bbox=#{bbox}][building=*][@meta]"
+    p 'downloading...'
+    resp = HTTParty.get "http://overpass-api.de/api/xapi?way[bbox=#{bbox_sm}][building=*][@meta]"
+    p 'parsing...'
     doc = JSON.parse(Hash.from_xml(resp).to_json).with_indifferent_access
 
+    p 'importing...'
     doc[:osm][:node].each do |_node|
       estate = Estate.new
       estate.map_id = _node[:id]
