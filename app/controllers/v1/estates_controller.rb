@@ -13,14 +13,14 @@ module V1
 
     def update
       @estate = Estate.find params[:id]
-      @estate.update estate_params
+      @estate.process estate_params
       render json: @estate
     end
 
   private
 
     def estate_params
-      params.require(:estate).permit :player_id, :latitude, :longitude, :estate_type_id
+      params.require(:estate).permit :player_id, :estate_type_id
     end
   end
 

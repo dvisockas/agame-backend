@@ -11,13 +11,19 @@ namespace :get_buildings do
     resp = HTTParty.get "http://overpass-api.de/api/xapi?way[bbox=#{bbox_sm}][building=*][@meta]"
     p 'parsing...'
     doc = JSON.parse(Hash.from_xml(resp).to_json).with_indifferent_access
-
+    byebug
+    p 'looking up unique keys...'
+    ids = doc[:osm][:node].map{|d|d[:changeset]}.uniq
     p 'importing...'
-    doc[:osm][:node].each do |_node|
+    ids.each do |id|
+      nodes = doc[:osm][:node].keep_if{ |d| d[:changeset].in? == id }
+      latitude = nodes.sum{ |l| l[:latitude] } / nodes.count
+      longitude = nodes.sum{ |l| l[:longitude] } / nodes.count
+
       estate = Estate.new
-      estate.map_id = _node[:id]
-      estate.latitude = _node[:lat]
-      estate.longitude = _node[:lon]
+      estate.map_id = nodes.first[:id]
+      estate.latitude = nodes.first[:lat]
+      estate.longitude = nodes.first[:lon]
       estate.save
     end
 
