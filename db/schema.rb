@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926132108) do
+ActiveRecord::Schema.define(version: 20150926145213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,12 @@ ActiveRecord::Schema.define(version: 20150926132108) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "kind",       null: false
+    t.integer  "kind",         null: false
+    t.float    "cost"
+    t.float    "health"
+    t.float    "health_regen"
+    t.float    "build_time"
+    t.integer  "level"
   end
 
   create_table "estates", force: :cascade do |t|
@@ -30,6 +35,7 @@ ActiveRecord::Schema.define(version: 20150926132108) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "estate_type_id"
+    t.float    "health"
   end
 
   add_index "estates", ["estate_type_id"], name: "index_estates_on_estate_type_id", using: :btree

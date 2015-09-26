@@ -16,6 +16,12 @@ module V1
       render json: @player
     end
 
+    def update
+      @player = Player.find params[:id]
+      @player.update player_params
+      render json: @player
+    end
+
   private
 
     def player_params

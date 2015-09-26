@@ -1,5 +1,5 @@
 class EstateTypeSerializer < ActiveModel::Serializer
 
-  attributes :name, :kind
+  attributes :id, :kind, :name, :level, :cost, :health, :build_time
 
 end

@@ -12,8 +12,13 @@ module V1
     end
 
     def create
-      # @estate = Estate.build estate_params
-      @estate = Estate.create estate_params
+      @estate = Estate.build estate_params
+      render json: @estate
+    end
+
+    def update
+      @estate = Estate.find params[:id]
+      @estate.update estate_params
       render json: @estate
     end
 

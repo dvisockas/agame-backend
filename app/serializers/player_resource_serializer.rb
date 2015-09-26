@@ -1,5 +1,5 @@
 class PlayerResourceSerializer < ActiveModel::Serializer
 
-  attributes :kind, :amount
+  attributes :id, :kind, :amount
 
 end

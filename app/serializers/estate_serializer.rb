@@ -1,5 +1,5 @@
 class EstateSerializer < ActiveModel::Serializer
 
-  attributes :player_id, :estate_type_id, :latitude, :longitude
+  attributes :id, :player_id, :latitude, :longitude, :estate_type_id, :health
 
 end

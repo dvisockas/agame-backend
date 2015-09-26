@@ -12,6 +12,18 @@ class Player < ActiveRecord::Base
 
   scope :gold, -> { player_resources.find_by kind: :gold }
 
+  def can_afford? estate_type
+    gold.amount >= estate_type.cost
+  end
+
+  def close_enough_to? location
+    distance_from(location.values) <= 1.0
+  end
+
+  def bill_gold cost
+    gold.update amount: (gold.amount - cost)
+  end
+
 private
   
   def set_name
