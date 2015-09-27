@@ -23,14 +23,16 @@ module V1
       render json: @player
     end
 
-    def attack
-      @player = Player.first
+    def attack!
+      @player = Player.find attack_params[:player_id]
+      @victim = Player.find attack_params[:victim_id]
+      @player.attack! @victim
       render json: @player
     end
 
   private
-    def attacker_params
-      # params.require(:)
+    def attack_params
+      params.require(:attack).permit :player_id, :victim_id
     end
 
     def player_params

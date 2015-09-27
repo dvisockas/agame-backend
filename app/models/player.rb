@@ -22,6 +22,10 @@ class Player < ActiveRecord::Base
     gold.update amount: (gold.amount - cost)
   end
 
+  def attack! victim
+    true
+  end
+
 private
   
   def allocate_resources

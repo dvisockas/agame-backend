@@ -1,9 +1,13 @@
 class EstateSerializer < ActiveModel::Serializer
 
-  attributes  :id, :player_id, :estate_type_id,
+  attributes  :id, :estate_type_id,
               :latitude, :longitude, :area,
-              :name#, :level
+              :name, :player
 
   has_many :nodes, serializer: NodeSerializer
+
+  def player
+    object.player
+  end
 
 end

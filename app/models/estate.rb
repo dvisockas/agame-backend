@@ -12,7 +12,7 @@ class Estate < ActiveRecord::Base
 
   def available_estates
     if estate_type.blank?
-      EstateType.all
+      EstateType.where({ level: 1 })
     else
       EstateType.where({ kind: estate_type.kind, level: (estate_type.level + 1) })
     end
