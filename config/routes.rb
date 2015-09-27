@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   namespace :v1, { defaults: { format: :json } } do
 
     resources :players, except: [:new, :edit] do
+      patch :attack
       member do
-        patch :attack
         patch :refuse_challenge
       end
     end
