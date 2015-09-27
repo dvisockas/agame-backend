@@ -8,7 +8,7 @@ module V1
 
     def show
       @player = Player.find params[:id]
-      render json: @player
+      render json: @player, serializer: PlayerShowSerializer
     end
 
     def create
