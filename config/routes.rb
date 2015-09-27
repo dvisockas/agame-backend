@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :players, except: [:new, :edit] do
       member do
         patch :attack
-        patch :join_gang
+        patch :refuse_challenge
       end
     end
     resources :estates, except: [:new, :edit] do

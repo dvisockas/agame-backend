@@ -1,6 +1,6 @@
 class PlayerSerializer < ActiveModel::Serializer
 
-  attributes :id, :name, :latitude, :longitude, :gold
+  attributes :id, :name, :latitude, :longitude, :gold, :last_defeated, :last_defended
 
   has_one :gang
 

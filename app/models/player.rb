@@ -24,12 +24,17 @@ class Player < ActiveRecord::Base
     gold.update amount: (gold.amount - cost)
   end
 
-  def attack! victim
-    true
+  def get_rekt_by! winner
+    rate = gold.amount / winner.gold.amount
+    loot = gold.amount * rate
+    gold.update amount: (gold.amount * 0.8)
+    touch :last_defeated
+    winner.gold.update amount: (winner.gold.amount + loot)
   end
 
-  def join_gang! gang
-    self.update gang_id: gang.id
+  def cowardice!
+    expence = wealth * 0.2
+    gold.update amount: (gold.amount - expense) if gold.amount >= expense
   end
 
   def wealth

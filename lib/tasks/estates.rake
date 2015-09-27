@@ -15,7 +15,6 @@ namespace :estates do
     p 'importing...'
     doc[:osm][:way].each do |way|
       @tags = way[:tag]
-      # next if tget('building') != 'yes'
 
       nodes = doc[:osm][:node].select{ |n| n[:id].in? way[:nd].map{ |nd| nd.values[0] } }
       latitude, longitude = Geocoder::Calculations.geographic_center nodes.map{ |n| [ n[:lat], n[:lon] ] }
