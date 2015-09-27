@@ -4,4 +4,6 @@ class EstateSerializer < ActiveModel::Serializer
               :latitude, :longitude, :area,
               :name#, :level
 
+  has_many :nodes, serializer: NodeSerializer
+
 end

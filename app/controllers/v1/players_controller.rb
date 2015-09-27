@@ -23,7 +23,15 @@ module V1
       render json: @player
     end
 
+    def attack
+      @player = Player.first
+      render json: @player
+    end
+
   private
+    def attacker_params
+      # params.require(:)
+    end
 
     def player_params
       params.require(:player).permit :name, :latitude, :longitude

@@ -27,6 +27,11 @@ namespace :estates do
       estate.area = calculate_area nodes.map{ |n| [ n[:lat], n[:lon] ] }
       estate.save
 
+      way[:nd].each_with_index do |nd, index|
+        node = doc[:osm][:node].select{ |n| n[:id] == nd[:ref] }.first
+        estate.nodes.create({ latitude: node[:lat], longitude: node[:lon], position: index })
+      end
+
     end
 
   end

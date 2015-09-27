@@ -2,6 +2,7 @@ class Estate < ActiveRecord::Base
 
   belongs_to :player
   belongs_to :estate_type
+  has_many :nodes
 
   reverse_geocoded_by :latitude, :longitude
 
