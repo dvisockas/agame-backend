@@ -15,7 +15,7 @@ class Player < ActiveRecord::Base
   end
 
   def close_enough_to? location
-    distance_from(location.values) <= 1.0
+    distance_from(location) <= 1.0
   end
 
   def bill_gold cost
