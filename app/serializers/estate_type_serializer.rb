@@ -8,7 +8,7 @@ class EstateTypeSerializer < ActiveModel::Serializer
       if options[:estate].present?
         ( ( options[:estate].send "calculated_#{_name}" ) * object.send(_name) ).round 0
       else
-        object.send(_name).round 0
+        object.send(_name).round 2
       end
     end
   end
