@@ -23,7 +23,7 @@ module V1
       render json: @player
     end
 
-    def attack!
+    def attack
       @winner = Player.find attack_params[:winner_id]
       @loser = Player.find attack_params[:loser_id]
       @loser.get_rekt_by! @winner
