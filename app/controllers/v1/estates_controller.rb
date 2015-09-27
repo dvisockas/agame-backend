@@ -3,7 +3,10 @@ module V1
   class EstatesController < ApplicationController
     def index
       @estates = Estate.near [params[:latitude], params[:longitude]], params[:distance], units: :km
-      render json: @estates
+      
+      if stale?(@estates)
+        render json: @estates
+      end
     end
 
     def show
