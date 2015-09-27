@@ -30,9 +30,21 @@ module V1
       render json: @player
     end
 
+    def join_gang
+      @player = Player.find params[:id]
+      @gang = Gang.find gang_params[:id]
+      @player.join_gang! @gang
+      render json: @player
+    end
+
   private
+  
+    def gang_params
+      params.require(:gang).permit :id
+    end
+
     def attack_params
-      params.require(:attack).permit :player_id, :victim_id
+      params.require(:attack).permit :victim_id
     end
 
     def player_params

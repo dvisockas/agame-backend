@@ -5,6 +5,8 @@ class Player < ActiveRecord::Base
 
   has_one :gold, lambda { gold }, class_name: 'PlayerResource'
 
+  belongs_to :gang
+
   reverse_geocoded_by :latitude, :longitude
   after_create :allocate_resources
 
@@ -24,6 +26,10 @@ class Player < ActiveRecord::Base
 
   def attack! victim
     true
+  end
+
+  def join_gang! gang
+    self.update gang_id: gang.id
   end
 
 private
