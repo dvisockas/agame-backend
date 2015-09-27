@@ -9,13 +9,13 @@ namespace :estates do
 
     p 'downloading...'
     # resp = HTTParty.get "http://overpass-api.de/api/xapi?way[bbox=#{bbox_sm}][building=yes]"
-    resp = File.open(Rails.root.to_s + '/lib/tasks/xapi').read
+    resp = File.open(Rails.root.to_s + '/lib/tasks/xapi_2').read
     p 'parsing...'
     doc = JSON.parse(Hash.from_xml(resp).to_json).with_indifferent_access
     p 'importing...'
     doc[:osm][:way].each do |way|
       @tags = way[:tag]
-      next if tget('building') != 'yes'
+      # next if tget('building') != 'yes'
 
       nodes = doc[:osm][:node].select{ |n| n[:id].in? way[:nd].map{ |nd| nd.values[0] } }
       latitude, longitude = Geocoder::Calculations.geographic_center nodes.map{ |n| [ n[:lat], n[:lon] ] }
@@ -29,7 +29,7 @@ namespace :estates do
 
       way[:nd].each_with_index do |nd, index|
         node = doc[:osm][:node].select{ |n| n[:id] == nd[:ref] }.first
-        estate.nodes.create({ latitude: node[:lat], longitude: node[:lon], position: index })
+        estate.nodes.find_or_create_by({ latitude: node[:lat], longitude: node[:lon], position: index })
       end
 
     end

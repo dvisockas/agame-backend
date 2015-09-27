@@ -33,8 +33,10 @@ class Player < ActiveRecord::Base
   end
 
   def wealth
-    0
-    # estates.sum{ |e| EstateType.where(kind: e.estate_type.kind).where('level <= ?', e.estate_type.level).sum{ |et| e.calculated_cost * et.cost } }
+    estates.to_a.sum do |e|
+      EstateType.where(kind: e.estate_type.kind).where('level <= ?', e.estate_type.level)
+        .to_a.sum{ |et| e.calculated_cost * et.cost }
+    end.round 2
   end
 
 private
