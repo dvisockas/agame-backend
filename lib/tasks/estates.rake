@@ -5,16 +5,20 @@ namespace :estates do
 
     bbox = '20.9568,55.6059,21.4735,55.7831'
     bbox_sm = '21.1284,55.7023,21.1607,55.7133'
+    url = "https://www.openstreetmap.org/api/0.6/map?bbox=#{bbox_sm}"
     # "http://overpass-api.de/api/xapi?way[bbox=21.1284,55.7023,21.1607,55.7133][building=yes]"
 
     p 'downloading...'
-    # resp = HTTParty.get "http://overpass-api.de/api/xapi?way[bbox=#{bbox_sm}][building=yes]"
-    resp = File.open(Rails.root.to_s + '/lib/tasks/xapi_2').read
+    # resp = (HTTParty.get url).body
+    resp = File.open(Rails.root.to_s + '/lib/tasks/map.osm').read
     p 'parsing...'
     doc = JSON.parse(Hash.from_xml(resp).to_json).with_indifferent_access
     p 'importing...'
     doc[:osm][:way].each do |way|
       @tags = way[:tag]
+
+      next if @tags.blank?
+      next if tget('building') != 'yes'
 
       nodes = doc[:osm][:node].select{ |n| n[:id].in? way[:nd].map{ |nd| nd.values[0] } }
       latitude, longitude = Geocoder::Calculations.geographic_center nodes.map{ |n| [ n[:lat], n[:lon] ] }
