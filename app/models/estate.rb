@@ -38,7 +38,6 @@ class Estate < ActiveRecord::Base
   end
 
   def build _player, _estate_type
-    byebug
     if _player.can_afford?(_estate_type) && _player.close_enough_to?(location)
       self.update build_options(_player, _estate_type)
       player.bill_gold _estate_type.cost
