@@ -10,4 +10,8 @@ class EstateSerializer < ActiveModel::Serializer
     object.player
   end
 
+  def area
+    object.area.round 2
+  end
+
 end
