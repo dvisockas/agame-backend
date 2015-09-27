@@ -32,6 +32,11 @@ class Player < ActiveRecord::Base
     self.update gang_id: gang.id
   end
 
+  def wealth
+    0
+    # estates.sum{ |e| EstateType.where(kind: e.estate_type.kind).where('level <= ?', e.estate_type.level).sum{ |et| e.calculated_cost * et.cost } }
+  end
+
 private
   
   def allocate_resources

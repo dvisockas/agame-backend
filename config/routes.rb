@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       end
     end
     resources :estate_types, except: [:new, :edit]
+    resources :gangs, except: [:new, :edit]
 
   end
 
