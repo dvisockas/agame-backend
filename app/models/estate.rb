@@ -2,7 +2,7 @@ class Estate < ActiveRecord::Base
 
   belongs_to :player
   belongs_to :estate_type
-  has_many :nodes
+  has_many :nodes, dependent: :destroy
 
   reverse_geocoded_by :latitude, :longitude
 

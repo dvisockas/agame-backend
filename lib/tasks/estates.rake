@@ -3,22 +3,20 @@ require 'json'
 namespace :estates do
   task run: :environment do
 
-    bbox = '20.9568,55.6059,21.4735,55.7831'
-    bbox_sm = '21.1284,55.7023,21.1607,55.7133'
-    url = "https://www.openstreetmap.org/api/0.6/map?bbox=#{bbox_sm}"
-    # "http://overpass-api.de/api/xapi?way[bbox=21.1284,55.7023,21.1607,55.7133][building=yes]"
+    hackathon = '21.1284,55.7023,21.1607,55.7133'
+    vilnius = '25.300076007843018,54.68982105408392,25.327134132385254,54.70118023682463'
+
+    # url = "https://www.openstreetmap.org/api/0.6/map?bbox=#{bbox_sm}"
+    # url = "http://overpass-api.de/api/xapi?way[bbox=#{vilnius}][building=*][@meta]"
 
     p 'downloading...'
     # resp = (HTTParty.get url).body
-    resp = File.open(Rails.root.to_s + '/lib/tasks/map.osm').read
+    resp = File.open(Rails.root.to_s + '/lib/tasks/vilnius').read
     p 'parsing...'
     doc = JSON.parse(Hash.from_xml(resp).to_json).with_indifferent_access
     p 'importing...'
     doc[:osm][:way].each do |way|
       @tags = way[:tag]
-
-      next if @tags.blank?
-      next if tget('building') != 'yes'
 
       nodes = doc[:osm][:node].select{ |n| n[:id].in? way[:nd].map{ |nd| nd.values[0] } }
       latitude, longitude = Geocoder::Calculations.geographic_center nodes.map{ |n| [ n[:lat], n[:lon] ] }
